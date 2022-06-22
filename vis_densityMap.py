@@ -3,6 +3,7 @@
 # @time     : 2021/12/3 20:54
 # @File     : vis_densityMap.py
 # @Software : PyCharm
+
 from Networks import ALTGVT
 import numpy as np
 from torch.autograd import Variable
@@ -33,7 +34,7 @@ def vis(args):
         print("not find image path!")
         exit(-1)
 
-    if image_path.split("/")[-4] != "QNRF":
+    if image_path.split("/")[-5] != "QNRF":
         dataset = "/".join(image_path.split("/")[-5:-3])
     else:
         dataset = "QNRF"
@@ -74,7 +75,7 @@ def vis(args):
             transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
         ])
     image = transform(image)
-    gt_dmap_path = image_path.replace('.jpg', '.h5').replace('images', 'gt_density_map_crop')
+    gt_dmap_path = image_path.replace('.jpg', '.npy').replace('images', 'gt_density_map_crop')
     gt_dmap = np.load(gt_dmap_path)
 
     with torch.no_grad():
